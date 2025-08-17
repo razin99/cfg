@@ -1,0 +1,4 @@
+[tools]
+aws-cli = "latest"
+lazydocker = "v0.24.1"
+bat = "v0.25.0"

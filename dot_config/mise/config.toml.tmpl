@@ -1,7 +1,16 @@
 # vim:filetype=toml
+{{- $overlay := false }}
+{{- $overlayFile := joinPath "overlays" .chezmoi.hostname "dot_config/mise/config.toml" -}}
+{{- if stat $overlayFile -}}
+{{- $overlay = (fromToml (include $overlayFile)) -}}
+{{- end }}
 
 [settings]
-idiomatic_version_file_enable_tools = []
+{{- if and ($overlay) (hasKey $overlay "settings") }}
+{{ $overlay.settings | toToml }}
+{{ else }}
+idiomatic_version_file_enable_tools = ["python"]
+{{- end }}
 
 [tools]
 usage = "latest"
@@ -14,3 +23,7 @@ node = "22.17.1"
 python = "3.13"
 jq = "1.8.1"
 yq = "4.47.1"
+{{ if and ($overlay) (hasKey $overlay "tools") }}
+# hostname: {{ .chezmoi.hostname }}
+{{ $overlay.tools | toToml }}
+{{- end -}}
