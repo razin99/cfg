@@ -1,0 +1,13 @@
+plugins:
+  - aws
+  - direnv
+  - terraform
+aliases:
+  k: kubectl
+  pinentry: pinentry-mac
+  lzd: lazydocker
+paths:
+  - $HOME/.local/bin
+  - $HOME/.cargo/bin
+  - ${KREW_ROOT:-$HOME/.krew}
+  - /opt/homebrew/bin/curl/bin
