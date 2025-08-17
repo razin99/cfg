@@ -1,3 +1,6 @@
+[settings]
+idiomatic_version_file_enable_tools = []
+
 [tools]
 usage = "latest"
 neovim = "0.11.3"
@@ -7,3 +10,5 @@ ripgrep = "14.1.1"
 lazygit = "v0.53.0"
 node = "22.17.1"
 python = "3.13"
+jq = "1.8.1"
+yq = "4.47.1"
