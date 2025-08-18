@@ -1,5 +1,9 @@
 # vim:filetype=zsh
-{{- $overlay := include (joinPath "overlays" .chezmoi.hostname "dot_zshrc.yaml") | fromYaml }}
+{{- $overlayFile := joinPath "overlays" .chezmoi.hostname "dot_zshrc.yaml" }}
+{{- $overlay := dict }}
+{{- if stat $overlayFile }}
+{{- $overlay = include $overlayFile | fromYaml }}
+{{- end }}
 export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="af-magic"
@@ -17,24 +21,26 @@ plugins=(
   pip
   tmux
   z
-  {{ join "\n  " $overlay.plugins }}
+  {{ join "\n  " (default (list) (get $overlay "plugins")) }}
 )
 
-{{- if stat "/opt/homebrew/bin/brew" }}
+{{ if stat "/opt/homebrew/bin/brew" -}}
+# Needs Homebrew before omz is reload on MacOS for some plugins
 export FPATH="$(/opt/homebrew/bin/brew --prefix)/share/zsh/site-functions:${FPATH}"
 export PATH="$PATH:/opt/homebrew/bin"
 eval "$(/opt/homebrew/bin/brew shellenv)"
-{{ end }}
+{{- end }}
 
 source $ZSH/oh-my-zsh.sh
 
-{{- if stat "/opt/homebrew/bin/op" }}
+{{ if stat "/opt/homebrew/bin/op" -}}
 eval "$(op completion zsh)"; compdef _op op
-{{ end -}}
+{{- end }}
 
-export PATH=$PATH:{{- $overlay.paths | join ":" }}
+export PATH=$PATH:{{ default (list) (get $overlay "paths") | join ":" }}
 
+# Aliases
 alias cp="cp -i"
-{{- range $k, $v := $overlay.aliases }}
+{{ range $k, $v := default (list) (get $overlay "aliases") -}}
 alias {{ $k }}="{{ $v }}"
-{{- end -}}
+{{ end }}
