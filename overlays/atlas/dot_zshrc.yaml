@@ -9,5 +9,5 @@ aliases:
 paths:
   - $HOME/.local/bin
   - $HOME/.cargo/bin
-  - ${KREW_ROOT:-$HOME/.krew}
+  - ${KREW_ROOT:-$HOME/.krew}/bin
   - /opt/homebrew/bin/curl/bin
