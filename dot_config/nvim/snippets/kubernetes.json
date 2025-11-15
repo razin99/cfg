@@ -183,6 +183,25 @@
             "$0"
         ]
     },
+    "k8s External Secret": {
+        "prefix": "k-external-secret",
+        "description": "k8s External Secret",
+        "body": [
+            "# yaml-language-server: \\$schema=https://github.com/datreeio/CRDs-catalog/raw/refs/heads/main/external-secrets.io/externalsecret_v1.json",
+            "# https://external-secrets.io/latest/api/externalsecret/",
+            "apiVersion: external-secrets.io/v1",
+            "kind: ExternalSecret",
+            "metadata:",
+            "  name: ${1:name}",
+            "spec:",
+            "  secretStoreRef:",
+            "    kind: ClusterSecretStore",
+            "    name: ${2:store}",
+            "  data:",
+            "---",
+            "$0"
+        ]
+    },
     "k8s Job": {
         "prefix": "k-job",
         "description": "k8s Job",
