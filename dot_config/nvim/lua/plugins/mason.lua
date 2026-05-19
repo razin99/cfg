@@ -14,7 +14,6 @@ return {
         "prettierd",
         "pyright",
         "ruff",
-        "tailwindcss-language-server",
         "terraform-ls",
         "texlab",
         "typescript-language-server",
