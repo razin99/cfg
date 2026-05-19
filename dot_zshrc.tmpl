@@ -39,6 +39,10 @@ eval "$(op completion zsh)"; compdef _op op
 
 export PATH=$PATH:{{ default (list) (get $overlay "paths") | join ":" }}
 
+{{ if lookPath "nono" -}}
+eval "$(nono completion zsh)"
+{{- end }}
+
 # Aliases
 alias cp="cp -i"
 {{ range $k, $v := default (list) (get $overlay "aliases") -}}
